@@ -2,8 +2,10 @@ import random
 import uuid
 from decimal import Decimal
 
+# kinda working but trade_all() is messed up
+
 # number of companies and investors instantiated
-number_of_instances = 10
+NUMBER_OF_INSTANCES = 100
 
 
 class Investor:
@@ -24,23 +26,35 @@ class Investor:
     def get_budget(self):
         return self.budget
 
-    # def sell_shares(self, company):
-    #     """ sells the shares from companies to investors - changed my mind """
-    #     trade = self.budget - company.get_share_price
-    #     Company.get_shares_num -= 1
-    #     self.acq_shares += 1
-    #     self.budget = trade
-    #     return self
+    def has_money(self):
+        """checks if the investor has money to trade"""
+        if self.budget > 0:
+            return True
+
+    def trade(self, company):
+        """ Swaps investor's money for companies's shares - in class"""
+        new_budget = self.budget - company.share_price
+        company.shares_num -= 1
+        self.acq_shares += 1
+        self.budget = new_budget
+
+
+# def trade(Investor, Company):
+#     """ Swaps investor's money for companies's shares - outter class [testing purposes]"""
+#     new_budget = Investor.budget - Company.share_price
+#     Company.shares_num -= 1
+#     Investor.acq_shares += 1
+#     Investor.budget = new_budget
 
 
 class Company:
 
-    def __init__(self, isTrading=True):
+    def __init__(self):
         """ Constructor for the Company object """
         self.id: str = uuid.uuid4().hex
-        self.is_trading = isTrading
         self.shares_num = random.randint(500, 1000)
         self.share_price = Decimal(random.randint(10, 100))
+        self.is_trading()
 
     def set_shares_num(self, shares):
         _shares_num = shares
@@ -69,67 +83,58 @@ class Company:
     def __repr__(self):
         return f"<Shares:{self.shares_num} price:{self.share_price}>\n"
 
+    def is_trading(self):
+        if self.shares_num > 0:
+            return True
+
 
 # instantiating companies (using list comprehension)
-comp = [Company() for _ in range(number_of_instances)]
+comp = [Company() for _ in range(NUMBER_OF_INSTANCES)]
 companies = {c.id: c for c in comp}
 print("List of companies: \n", companies)
 
 # instantiating investors (using list comprehension)
-inv = [Investor() for _ in range(number_of_instances)]
+inv = [Investor() for _ in range(NUMBER_OF_INSTANCES)]
 investors = {i.id_inv: i for i in inv}
-print("List of Investors: \n", inv)
+print("List of Investors: \n", investors)
 
 
-def trade(investor, company):
-    """ Swaps investor's money for companies's shares"""
-    new_budget = investor.budget - company.share_price
-    company.shares_num -= 1
-    investor.acq_shares += 1
-    investor.budget = new_budget
-    return investor, company
+# def trade_all(invs, comps):
+#     """ function that keeps looping through >> returning an infinite loop"""
+#     for inv in investors:
+#         for comp in companies:
+#             # while Investor.has_money is True and Company.is_trading is True:
+#             for (i, c) in zip(inv, comp):
+#                 Investor.trade(i, c)
+#                 print("Trade successful")
+#             # else:
+#             #     break
 
-
-# # sample for testing pre-trade
-# print("pre trading: ", inv[0], comp[0])
-# print("pre trading: ", inv[1], comp[1])
-# print("pre trading: ", inv[2], comp[2])
 
 def trade_all(invs, comps):
-    """function that keeps looping through """
-    # loop through to continue trading
-    for _ in range(0, number_of_instances):
-        while inv[_].budget > 0 or comp[_].share_price > 0:
-            for (i, c) in zip(inv, comp):
-                trade(i, c)
-                print("investors now have: ", inv)
-        else:
-            print("there are no more available shares or investor's money to trade")
-            break
+    """ function that trades between investors and shares - kinda works, just not dynamic"""
+    while Investor.has_money is True and Company.is_trading is True:
+        for index in range(len(investors)):
+            for index_ in range(len(companies)):
+                # for (i, c) in zip(inv, comp):
+                Investor.trade(inv[index], comp[index_])
+                print("Companies: " + str(comp[index]), "Investors: " + str(inv[index]))
+    else:
+        print("Sorry, no more assets available to trade. Check your resources.")
 
+# calling trade_all function
+trade_all(investors, companies)
 
-# I'm prettu sure I'm calling this function wrong
-trade_all(companies, investors)
+""" 'test' for trade function with individual instances"""
+# making instances trade individually
+# trade(inv[0], comp[0])
+# trade(inv[0], comp[1])
+# trade(inv[0], comp[2])
+# trade(inv[1], comp[0])
+# trade(inv[1], comp[1])
 
-
-# # testing post-trade
-print("post trading: ", inv[0], comp[0])
-print("post trading: ", inv[1], comp[1])
-print("post trading: ", inv[2], comp[2])
-
-
-class Transaction:
-
-    def __init__(self, funds, update_share_price, max_shares_sell=1):
-        """ not sure if this class should exist or
-            if the trade_all() should be in here """
-        self.funds = funds
-        self.update_share_price = update_share_price
-        self.max_shares_sell = max_shares_sell
-
-    def trade(self):
-        def buy():
-            return self.share_price
-
-    def buy(self, budget):
-        self.budget -= comp.share_price
+# printing post-trade result
+print("POST TRADING: ")
+print(f" Investor I: {inv[0]} Company I: {comp[0]}")
+print(f" Investor II: {inv[1]} Company II: {comp[1]}")
+print(f" Investor III: {inv[2]} Company III: {comp[2]}")
