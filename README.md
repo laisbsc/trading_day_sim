@@ -18,3 +18,5 @@ The Observer defines a one-to-many relationship so that when one object changes 
 I tried implementing the Factory pattern to create the classes (without much success).
 
 ### NOTE: the file data.py implements the Decorator, aiming to assign extra behaviors to objects at runtime without breaking the code that uses these objects. This would be used instead of the Observer. Success was equal to the Factory pattern implementation.
+
+Source code can be found at: https://github.com/laisbsc/trading_day_sim
