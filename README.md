@@ -6,8 +6,8 @@ A typical trading day is characterized by investors buying ONE share from each c
 The trading ends once investors have no more money OR there are no more available shares to buy.
 When finalised, the program will prompt the user with a menu showing options to return different types of report.
 ___________________________________________________________________________________
-[Disclaimer: wording below shall not be considered at the moment. <br>
-Justification for chosen design patterns] <br>Design patterns are a common way of solving well known problems. Two main principles are in the bases of the design patterns defined by the GOF:
+
+[Disconsider wording below - it will become the justification for chosen design patterns] Design patterns are a common way of solving well known problems. Two main principles are in the bases of the design patterns defined by the GOF:
 
     Program to an interface not an implementation.
     Favor object composition over inheritance.
