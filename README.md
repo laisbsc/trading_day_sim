@@ -7,7 +7,9 @@ The trading ends once investors have no more money OR there are no more availabl
 When finalised, the program will prompt the user with a menu showing options to return different types of report.
 ___________________________________________________________________________________
 
-[Disconsider wording below - it will become the justification for chosen design patterns] Design patterns are a common way of solving well known problems. Two main principles are in the bases of the design patterns defined by the GOF:
+# Design Patterns
+# Justification
+Design patterns are a common way of solving well known problems. Two main principles are in the bases of the design patterns defined by the GOF:
 
     Program to an interface not an implementation.
     Favor object composition over inheritance.
