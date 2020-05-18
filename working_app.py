@@ -3,10 +3,21 @@ from decimal import Decimal
 from typing import List
 import random
 
+""" NOTE FOR TEACHER:
+This file should not be consider for grading purposes since it is not
+the student's code.
+
+This code was written by Nicolas Laurence on 18/05/2020.
+As a bet that the app could be written in under an hour ¬¬' and
+without the use of design patterns [my friends are dicks, I know!]"""
+
 
 class Investor():
 
     def __init__(self, market):
+        """
+        initializes the Investor object
+        """
         self.id = uuid.uuid4().hex[:6]
         self.budget: Decimal = random.randint(1_000, 10_000)
         self.portfolio = {}
