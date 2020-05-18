@@ -8,12 +8,15 @@ When finalised, the program will prompt the user with a menu showing options to 
 ___________________________________________________________________________________
 
 # Design Patterns
-# Justification
-Design patterns are a common way of solving well known problems. Two main principles are in the bases of the design patterns defined by the GOF:
+Design patterns are a common way of solving well known problems. Two main principles are in the bases of the design patterns defined by the Gang of Four:
 
     Program to an interface not an implementation.
     Favor object composition over inheritance.
 
-The Observer defines a one-to-many relationship so that when one object changes state, the others are notified and updated automatically. In this case, it was used so that everytime a trade happened, the share_number state would change. And for each 10 shares sold on the market, the companies with curr_share_numer equals to their init_share_number had their share_price *= 0.98.
+The Observer defines a one-to-many relationship so that when one object changes state, the others are notified and updated automatically. In this case, it was used so that everytime a trade happened, the share_number state would change. And for each 10 shares sold on the market, the companies with curr_share_numer equals to their init_share_number had their price soar() with `share_price *= 0.98`.
 
-Moderator instead of observer - https://sourcemaking.com/design_patterns/mediator introduce "an additional level of indirection" - take the mapping of users to groups and groups to users, and make it an abstraction unto itself. This offers several advantages: Users and Groups are decoupled from one another, many mappings can easily be maintained and manipulated simultaneously, and the mapping abstraction can be extended in the future by defining derived classes. The Mediator defines an object that controls how a set of objects interact. Loose coupling between colleague objects is achieved by having colleagues communicate with the Mediator, rather than with each other. The control tower at a controlled airport demonstrates this pattern very well. The pilots of the planes approaching or departing the terminal area communicate with the tower rather than explicitly communicating with one another. The constraints on who can take off or land are enforced by the tower. It is important to note that the tower does not control the whole flight. It exists only to enforce constraints in the terminal area. Mediator leverages Observer for dynamically registering colleagues and communicating with them.
+I tried implementing the Factory pattern to create the classes (without much success).
+
+### NOTE: the file data.py implements the Decorator, aiming to assign extra behaviors to objects at runtime without breaking the code that uses these objects. This would be used instead of the Observer. Success was equal to the Factory pattern implementation.
+
+Source code can be found at: https://github.com/laisbsc/trading_day_sim
